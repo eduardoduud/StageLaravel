@@ -23,7 +23,7 @@ class UpdateWorkflowRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'setor' => 'required'.$this->workflow->id,
+            'setor' => 'required'
         ];
     }
 }

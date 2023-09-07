@@ -41,7 +41,7 @@ class WorkflowController extends Controller
 
     public function update(UpdateWorkflowRequest $request, Workflow $workflow)
     {
-        $data = $request();
+        $data = $request->validated();
         $workflow->update($data);
 
         return new WorkflowResource($workflow);
