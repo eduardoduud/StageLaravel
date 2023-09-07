@@ -7,6 +7,7 @@ import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import Workflow from "./pages/Workflow";
 import WorkflowForm from "./pages/WorkflowForm";
+import WorkflowView from "./pages/WorkflowView";
 import UserForm from "./pages/UserForm";
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/workflows/:id',
+                element: <WorkflowView key="workflowView"/>
+            },
+            {
+                path: '/workflows/edit/:id',
                 element: <WorkflowForm key="workflowUpdate"/>
             },
         ]

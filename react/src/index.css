@@ -36,6 +36,13 @@ input:focus {
     border-color: #b44d11;
 }
 
+.workflow {
+    color: #efefef;
+}
+.workflow:hover {
+    color: #b9b9b9;
+}
+
 .btn,
 .btn-add,
 .btn-edit,

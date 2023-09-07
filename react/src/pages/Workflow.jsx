@@ -66,11 +66,11 @@ export default function Workflows() {
             {workflows.map(u => (
               <tr key={u.id}>
                 <td>{u.id}</td>
-                <td>{u.name}</td>
+                <td><Link className="workflow" to={'/workflows/' + u.id}>{u.name}</Link></td>
                 <td>{u.setor}</td>
                 <td>{u.created_at}</td>
                 <td>
-                  <Link className="btn-edit" to={'/workflows/' + u.id}>Editar</Link>
+                  <Link className="btn-edit" to={'/workflows/edit/' + u.id}>Editar</Link>
                   &nbsp;
                   <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Deletar</button>
                 </td>
