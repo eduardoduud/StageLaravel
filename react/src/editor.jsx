@@ -7,6 +7,7 @@ import { RxFontBold, RxFontItalic, RxCode, RxUnderline } from 'react-icons/rx'
 import { RiStrikethrough } from 'react-icons/ri'
 import { BubbleButton } from './components/BubbleButton.jsx';
 import axiosClient from './axios-client.js';
+import Underline from '@tiptap/extension-underline';
 
 export function Editor() {
   const [editorReady, setEditorReady] = useState(false);
@@ -25,7 +26,7 @@ export function Editor() {
   });
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Underline],
     editorProps: {
       attributes: {
         class: 'text-editor__editor',
@@ -96,19 +97,24 @@ export function Editor() {
             <EditorContent key={editorContent} editor={editor} />
             { editor && (
             <BubbleMenu className='bubble-menu' editor={editor}>
-              <BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleBold().run()}>
                 <RxFontBold />
               </BubbleButton>
-              <BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleItalic().run()}>
                 <RxFontItalic />
               </BubbleButton>
-              <BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleStrike().run()}>
                 <RiStrikethrough />
               </BubbleButton>
-              <BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleUnderline().run()}>
                 <RxUnderline />
               </BubbleButton>
-              <BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleCode().run()}>
                 <RxCode />
               </BubbleButton>
             </BubbleMenu>
