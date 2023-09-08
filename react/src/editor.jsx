@@ -1,8 +1,11 @@
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
 import { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import { useStateContext } from './contexts/ContextProvider.jsx';
+import { RxFontBold, RxFontItalic, RxCode, RxUnderline } from 'react-icons/rx'
+import { RiStrikethrough } from 'react-icons/ri'
+import { BubbleButton } from './components/BubbleButton.jsx';
 import axiosClient from './axios-client.js';
 
 export function Editor() {
@@ -31,13 +34,12 @@ export function Editor() {
   });
 
   const editorContent = useMemo(() => {
+    if (editor) {
+      setEditorReady(true);
+    }
     // Verifica se o editor está pronto antes de acessá-lo
     if (editor && editor.commands) {
       editor.commands.setContent(data.htmltext); // Atualiza o conteúdo do editor com os dados locais
-    }
-
-    if (editor) {
-      setEditorReady(true);
     }
   }, [editor, data]);
 
@@ -53,13 +55,12 @@ export function Editor() {
             setLoading(false)
           })
           .catch(() => {
-            // Trate o erro aqui
           });
       }
     }
   }, [id, data.htmltext]);
 
-  const enviarParaServidor = () => {
+  const handleSave = () => {
     if (editorReady) {
       if (editor && editor.commands) {
         axiosClient
@@ -68,7 +69,6 @@ export function Editor() {
             setNotification('Texto atualizado com sucesso');
           })
           .catch(() => {
-            // Trate o erro aqui
           });
       }
     }
@@ -92,9 +92,28 @@ export function Editor() {
           </div>
         }
         {!loading && (
-          <div className='semoutline'>
+          <div>
             <EditorContent key={editorContent} editor={editor} />
-            <button onClick={enviarParaServidor}>Enviar para o Servidor</button>
+            { editor && (
+            <BubbleMenu className='bubble-menu' editor={editor}>
+              <BubbleButton>
+                <RxFontBold />
+              </BubbleButton>
+              <BubbleButton>
+                <RxFontItalic />
+              </BubbleButton>
+              <BubbleButton>
+                <RiStrikethrough />
+              </BubbleButton>
+              <BubbleButton>
+                <RxUnderline />
+              </BubbleButton>
+              <BubbleButton>
+                <RxCode />
+              </BubbleButton>
+            </BubbleMenu>
+            )}
+            <button onClick={handleSave}>Salvar</button>
           </div>
         )}
       </div>

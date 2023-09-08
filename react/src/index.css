@@ -43,6 +43,43 @@ input:focus {
     }
 }
 
+.bubble-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(39 39 42);
+    box-shadow: 0px 0px 3px 3px #2c2c2c;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bubble-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    line-height: 1;
+    text-decoration: none;
+    color: #333333;
+    font-size: 18px;
+    border-radius: 0px;
+    width: 35px;
+    height: 25px;
+    border: 1px solid #333333;
+    transition: 0.3s;
+    background-color: #ffffff;
+  }
+  
+.bubble-btn:hover {
+    color: #fff;
+    background-color: #464646;
+  }
+.bubble-btn:active {
+	position:relative;
+	top:1px;
+}
+
 .workflow {
     color: #efefef;
 }
