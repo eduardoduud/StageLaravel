@@ -15,7 +15,9 @@ class StoreWorkflowRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'setor' => 'required'
+            'setor' => 'required|string',
+            'description' => 'required|string',
+            'htmltext' => ''
         ];
     }
 }

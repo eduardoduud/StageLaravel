@@ -10,6 +10,8 @@ export default function Workflows() {
     id: null,
     name: '',
     setor: '',
+    description: '',
+    htmltext: 'Faça suas anotações aqui',
   })
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -78,8 +80,26 @@ export default function Workflows() {
         }
         {!loading && (
           <form onSubmit={onSubmit}>
-            <input value={workflow.name} onChange={ev => setWorkflow({...workflow, name: ev.target.value})} placeholder="Nome"/>
-            <input value={workflow.setor} onChange={ev => setWorkflow({...workflow, setor: ev.target.value})} placeholder="Setor"/>
+            <input
+              value={workflow.name}
+              onChange={ev => setWorkflow({...workflow, name: ev.target.value})}
+              placeholder="Nome"/>
+            <input
+            value={workflow.setor}
+            onChange={ev => setWorkflow({...workflow, setor: ev.target.value})}
+            placeholder="Setor"/>
+            <textarea
+              value={workflow.description}
+              onChange={ev => setWorkflow({...workflow, description: ev.target.value})}
+              placeholder="Descrição do processo"
+              style={{
+                resize: 'both',
+                minHeight: '100px', // Altura mínima desejada
+                minWidth: '900px',
+                fontSize: '16px',   // Tamanho da fonte desejado
+                fontFamily: 'Arial, sans-serif' // Fonte desejada
+              }}
+            />
             <button className="btn">Salvar</button>
           </form>
         )}

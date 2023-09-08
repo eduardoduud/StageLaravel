@@ -18,8 +18,11 @@ class WorkflowResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'name' => $this->name,
             'setor' => $this->setor,
+            'description' => $this->description,
+            'htmltext' => $this->htmltext,
             'created_at' => $this->created_at->format('d-m-Y H:i:s'),
         ];
     }

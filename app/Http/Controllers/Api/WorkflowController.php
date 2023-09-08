@@ -28,6 +28,8 @@ class WorkflowController extends Controller
         $workflow = new Workflow();
         $workflow->name = $data['name'];
         $workflow->setor = $data['setor'];
+        $workflow->description = $data['description'];
+        $workflow->htmltext = $data['htmltext'];
         $workflow->save();
 
         // Retorne o workflow criado

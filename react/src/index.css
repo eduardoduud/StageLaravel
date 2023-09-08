@@ -21,6 +21,7 @@ body {
 }
 
 input {
+    display: flex;
     outline: 0;
     background: #ffffff;
     width: 100%;
@@ -34,6 +35,12 @@ input {
 
 input:focus {
     border-color: #b44d11;
+}
+
+.text-editor__editor {
+    &:focus {
+         outline: none;
+    }
 }
 
 .workflow {

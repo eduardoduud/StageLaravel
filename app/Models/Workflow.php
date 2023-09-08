@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Workflow extends Authenticatable
+class Workflow extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'setor',
-    ];
+    protected $fillable = ['name', 'setor', 'description', 'htmltext', 'parent_id'];
+
+    public function parent()
+    {
+        return $this->belongsTo(Workflow::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Workflow::class, 'parent_id');
+    }
 }

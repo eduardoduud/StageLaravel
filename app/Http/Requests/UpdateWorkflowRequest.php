@@ -23,7 +23,9 @@ class UpdateWorkflowRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'setor' => 'required'
+            'setor' => 'required',
+            'description' => 'string',
+            'htmltext' => ''
         ];
     }
 }
