@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useStateContext } from './contexts/ContextProvider.jsx';
-import { RxFontBold, RxFontItalic, RxCode, RxUnderline } from 'react-icons/rx'
+import { RxFontBold, RxFontItalic, RxCode, RxUnderline, RxCodesandboxLogo } from 'react-icons/rx'
 import { RiStrikethrough } from 'react-icons/ri'
 import { BubbleButton } from './components/BubbleButton.jsx';
 import axiosClient from './axios-client.js';
@@ -116,6 +116,10 @@ export function Editor() {
               <BubbleButton
                 onClick={() => editor.chain().focus().toggleCode().run()}>
                 <RxCode />
+              </BubbleButton>
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+                <RxCodesandboxLogo />
               </BubbleButton>
             </BubbleMenu>
             )}
