@@ -316,3 +316,15 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+
+.not-found {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.not-found p {
+    display: flex;
+    color: #fcfcfc;
+    align-items: center;
+    font-size: 10vh;
+}
