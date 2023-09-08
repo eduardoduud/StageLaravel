@@ -119,7 +119,7 @@ export function Editor() {
               </BubbleButton>
             </BubbleMenu>
             )}
-            <button onClick={handleSave}>Salvar</button>
+            <button className="btn" onClick={handleSave}>Salvar</button>
           </div>
         )}
       </div>
