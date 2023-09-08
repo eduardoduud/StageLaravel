@@ -26,7 +26,10 @@ export function Editor() {
   });
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+    extensions: [
+      StarterKit, 
+      Underline,
+    ],
     editorProps: {
       attributes: {
         class: 'text-editor__editor',
