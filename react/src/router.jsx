@@ -6,7 +6,9 @@ import NotFound from "./pages/NotFound";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import Workflow from "./pages/Workflow";
+import Setores from "./pages/Setores";
 import WorkflowForm from "./pages/WorkflowForm";
+import SetorForm from "./pages/SetorForm";
 import UserForm from "./pages/UserForm";
 import { Editor } from "./editor";
 
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
                 element: <Workflow/>
             },
             {
+                path: '/departments',
+                element: <Setores/>
+            },
+            {
                 path: '/users',
                 element: <Users/>
             },
@@ -34,6 +40,18 @@ const router = createBrowserRouter([
             {
                 path: '/users/:id',
                 element: <UserForm key="userUpdate"/>
+            },
+            {
+                path: '/departments/new',
+                element: <SetorForm key="setorCreate"/>
+            },
+            {
+                path: '/departments/:id',
+                element: <Workflow key="workflows"/>
+            },
+            {
+                path: '/departments/edit/:id',
+                element: <SetorForm key="setorUpdate"/>
             },
             {
                 path: '/workflows/new',

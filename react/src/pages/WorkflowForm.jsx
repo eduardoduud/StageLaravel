@@ -3,19 +3,42 @@ import {useEffect, useState} from "react";
 import axiosClient from "../axios-client.js";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 
-export default function Workflows() {
+export default function WorkflowsForm() {
   const navigate = useNavigate();
+  const [departments, setDepartments] = useState([]);
   let {id} = useParams();
   const [workflow, setWorkflow] = useState({
     id: null,
     name: '',
-    setor: '',
+    department_id: '',
     description: '',
     htmltext: 'Faça suas anotações aqui',
   })
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
   const {setNotification} = useStateContext()
+
+  useEffect(() => {
+    axiosClient.get('/departments')
+    .then(({ data }) => {
+      // Verifique se a propriedade "data" existe na resposta da API
+      if (data && Array.isArray(data.data)) {
+        // Acesse diretamente a matriz de setores usando data.data
+        const setoresArray = data.data;
+  
+        // Agora você pode usar setoresArray com .map() ou qualquer outra operação desejada
+        setDepartments(setoresArray);
+      } else {
+        console.error('A resposta da API não contém uma matriz de setores válida.');
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao carregar os setores', error);
+    });
+  
+
+  }, []);
+  
 
   if (id) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -84,10 +107,17 @@ export default function Workflows() {
               value={workflow.name}
               onChange={ev => setWorkflow({...workflow, name: ev.target.value})}
               placeholder="Nome"/>
-            <input
-            value={workflow.setor}
-            onChange={ev => setWorkflow({...workflow, setor: ev.target.value})}
-            placeholder="Setor"/>
+            <select
+              onChange={ev => setWorkflow({...workflow, department_id: ev.target.value})}
+              placeholder="Setor"
+            >
+              <option value="">Selecione um Setor</option>
+              {departments.map(setor => (
+                <option key={setor.id} value={setor.id}>
+                  {setor.name} - {setor.id}
+                </option>
+              ))}
+            </select>
             <textarea
               value={workflow.description}
               onChange={ev => setWorkflow({...workflow, description: ev.target.value})}

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreWorkflowRequest;
 use App\Http\Requests\UpdateWorkflowRequest;
 use App\Http\Resources\WorkflowResource;
 use App\Models\Workflow;
+use App\Models\Department;
 
 class WorkflowController extends Controller
 {
@@ -24,15 +25,21 @@ class WorkflowController extends Controller
     {
         // Validação e criação do novo workflow
         $data = $request->validated();
-        
+
+        // Recuperando o Setor com base no ID passado no request
+        $department = Department::findOrFail($data['department_id']);
+
+        // Criando um novo Workflow associado ao Setor
         $workflow = new Workflow();
         $workflow->name = $data['name'];
-        $workflow->setor = $data['setor'];
         $workflow->description = $data['description'];
         $workflow->htmltext = $data['htmltext'];
+
+        // Associando o Workflow ao Setor
+        $department->children()->save($workflow);
+
         $workflow->save();
 
-        // Retorne o workflow criado
         return response()->json(['message' => 'Workflow criado com sucesso', 'workflow' => $workflow], 201);
     }
 

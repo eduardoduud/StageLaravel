@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWorkflowRequest extends FormRequest
+class UpdateDepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,7 @@ class UpdateWorkflowRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'department_id' => '',
-            'description' => 'string',
-            'htmltext' => ''
+            'description' => '',
         ];
     }
 }

@@ -11,7 +11,5 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@tiptap/extension-underline": "^2.1.8",
-        "react-icons": "^4.11.0"
     }
 }

@@ -2,50 +2,45 @@ import {useEffect, useState} from "react";
 import axiosClient from "../axios-client.js";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
-import { useParams } from "react-router-dom";
 
-export default function Workflows() {
-  const [workflows, setWorkflows] = useState([]);
+export default function Setores() {
+  const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(false);
   const {setNotification} = useStateContext()
-  let { id } = useParams();
 
   useEffect(() => {
-    getWorkflows();
+    getSetores();
   }, [])
 
-  const getWorkflows = () => {
+  const onDeleteClick = department => {
+    if (!window.confirm("Tem certeza que deseja deletar este setor?")) {
+      return
+    }
+    axiosClient.delete(`/departments/${department.id}`)
+      .then(() => {
+        setNotification('Setor deletado com sucesso')
+        getSetores()
+      })
+  }
+
+  const getSetores = () => {
     setLoading(true)
-    axiosClient.get('/workflows')
+    axiosClient.get('/departments')
       .then(({ data }) => {
         setLoading(false)
-        console.log('departmentId:', id);
-        console.log('filteredWorkflows:', filteredWorkflows);
-        setWorkflows(data.data)
+        console.log(data)
+        setDepartments(data.data)
       })
       .catch(() => {
         setLoading(false)
       })
   }
 
-  const filteredWorkflows = workflows.filter(u => u.department_id === parseInt(id));
-
-  const onDeleteClick = workflow => {
-    if (!window.confirm("Tem certeza que deseja deletar este workflow?")) {
-      return
-    }
-    axiosClient.delete(`/workflows/${workflow.id}`)
-      .then(() => {
-        setNotification('Workflow deletado com sucesso')
-        getWorkflows()
-      })
-  }
-
   return (
     <div>
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h1>Workflows</h1>
-        <Link className="btn-add" to="/workflows/new">Adicionar</Link>
+        <h1>Setores</h1>
+        <Link className="btn-add" to="/departments/new">Adicionar</Link>
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -69,14 +64,14 @@ export default function Workflows() {
           }
           {!loading &&
             <tbody>
-            {filteredWorkflows.map(u => (
+            {departments.map(u => (
               <tr key={u.id}>
                 <td>{u.id}</td>
-                <td><Link className="workflow" to={'/workflows/' + u.id}>{u.name}</Link></td>
-                <td>{u.department_id}</td>
+                <td><Link className="workflow" to={'/departments/' + u.id}>{u.name}</Link></td>
+                <td>{u.department}</td>
                 <td>{u.created_at}</td>
                 <td>
-                  <Link className="btn-edit" to={'/workflows/edit/' + u.id}>Editar</Link>
+                  <Link className="btn-edit" to={'/departments/edit/' + u.id}>Editar</Link>
                   &nbsp;
                   <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Deletar</button>
                 </td>

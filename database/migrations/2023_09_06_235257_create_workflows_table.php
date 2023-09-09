@@ -11,13 +11,11 @@ class CreateWorkflowsTable extends Migration
         Schema::create('workflows', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('setor');
             $table->string('description');
             $table->string('htmltext')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('parent_id')->references('id')->on('workflows');
         });
     }
 
