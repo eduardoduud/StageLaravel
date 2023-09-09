@@ -19,8 +19,6 @@ export default function Workflows() {
     axiosClient.get('/workflows')
       .then(({ data }) => {
         setLoading(false)
-        console.log('departmentId:', id);
-        console.log('filteredWorkflows:', filteredWorkflows);
         setWorkflows(data.data)
       })
       .catch(() => {

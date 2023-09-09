@@ -61,7 +61,7 @@ export default function WorkflowsForm() {
       axiosClient.put(`/workflows/${workflow.id}`, workflow)
         .then(() => {
           setNotification('Workflow atualizado com sucesso')
-          navigate('/workflows')
+          navigate(`/departments/${workflow.department_id}`)
         })
         .catch(err => {
           const response = err.response;
@@ -73,7 +73,7 @@ export default function WorkflowsForm() {
       axiosClient.post('/workflows', workflow)
         .then(() => {
           setNotification('Workflow criado com sucesso')
-          navigate('/workflows')
+          navigate(`/departments/${workflow.department_id}`)
         })
         .catch(err => {
           const response = err.response;
