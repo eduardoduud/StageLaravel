@@ -10,7 +10,7 @@ class Workflow extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'setor_id', 'description', 'htmltext', 'parent_id'];
+    protected $fillable = ['name', 'setor_id', 'sub_id', 'description', 'htmltext', 'parent_id'];
 
     public function parent()
     {

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreWorkflowRequest extends FormRequest
+class StoreSubDepartmentRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,10 +15,8 @@ class StoreWorkflowRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'department_id' => 'string',
-            'sub_id' => '',
-            'description' => 'required|string',
-            'htmltext' => ''
+            'description' => 'string',
+            'department_id' => 'string'
         ];
     }
 }

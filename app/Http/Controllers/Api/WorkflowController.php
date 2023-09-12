@@ -32,6 +32,7 @@ class WorkflowController extends Controller
         // Criando um novo Workflow associado ao Setor
         $workflow = new Workflow();
         $workflow->name = $data['name'];
+        $workflow->sub_id = $data['sub_id'];
         $workflow->description = $data['description'];
         $workflow->htmltext = $data['htmltext'];
 
