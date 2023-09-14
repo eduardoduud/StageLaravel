@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubDepartmentRequest;
 use App\Http\Requests\UpdateSubDepartmentRequest;
 use App\Http\Resources\SubDepartmentResource;
+use App\Http\Resources\DepartmentResource;
+use App\Http\Resources\WorkflowResource;
 use App\Models\SubDepartment;
+use App\Models\Workflow;
 
 class SubDepartmentController extends Controller
 {
@@ -34,9 +37,16 @@ class SubDepartmentController extends Controller
         return response()->json(['message' => 'Sub-setor criado com sucesso', 'setor' => $subdepartment], 201);
     }
 
-    public function show(SubDepartment $subdepartment)
+    public function show($id)
     {
-        return new SubDepartmentResource($subdepartment);
+        $subdepartment = Subdepartment::findOrFail($id);
+    
+        $workflows = Workflow::where('sub_id', $subdepartment->id)
+            ->get();
+    
+        return response()->json([
+            'workflows' => WorkflowResource::collection($workflows),
+        ]);
     }
 
     public function update(UpdateSubDepartmentRequest $request, SubDepartment $subdepartment)

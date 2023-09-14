@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
 use App\Http\Resources\DepartmentResource;
+use App\Http\Resources\WorkflowResource;
+use App\Http\Resources\SubDepartmentResource;
+use App\Models\Workflow;
+use App\Models\Subdepartment;
 use App\Models\Department;
 
 class DepartmentController extends Controller
@@ -33,9 +37,22 @@ class DepartmentController extends Controller
         return response()->json(['message' => 'Setor criado com sucesso', 'setor' => $department], 201);
     }
 
-    public function show(Department $department)
+    public function show($id)
     {
-        return new DepartmentResource($department);
+        $department = Department::findOrFail($id);
+    
+        $workflows = Workflow::where('department_id', $department->id)
+            ->whereNull('sub_id')
+            ->get();
+    
+        $subdepartments = Subdepartment::where('department_id', $department->id)
+            ->get();
+    
+        return response()->json([
+            'department' => new DepartmentResource($department),
+            'workflows' => WorkflowResource::collection($workflows),
+            'subdepartments' => SubdepartmentResource::collection($subdepartments),
+        ]);
     }
 
     public function update(UpdateDepartmentRequest $request, Department $department)
